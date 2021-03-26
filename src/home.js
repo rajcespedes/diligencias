@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FormInfo from '../src/formInfoView';
 
 export default class Home extends Component {
 
@@ -12,10 +13,14 @@ export default class Home extends Component {
         this.onChangeLastName = this.onChangeLastName.bind(this);
         this.onChangeCedula = this.onChangeCedula.bind(this);
         this.onChangeActa = this.onChangeActa.bind(this);
+        this.onChangeSecondName = this.onChangeSecondName.bind(this);
+        this.onChangeSecondLastName = this.onChangeSecondLastName.bind(this);
 
         this.state = {
             name: '',
+            secondName: '',
             lastname: '',
+            secondLastname: '',
             cedula: '',
             acta: ''
         };
@@ -27,9 +32,21 @@ export default class Home extends Component {
         });
     }
 
+    onChangeSecondName(e){
+        this.setState({
+            secondName: e.target.value    
+        });
+    }
+
     onChangeLastName(e) {
         this.setState({
             lastname: e.target.value
+        });
+    }
+
+    onChangeSecondLastName(e){
+        this.setState({
+            secondLastname: e.target.value
         });
     }
 
@@ -51,8 +68,12 @@ export default class Home extends Component {
                 <div className="form-group">
                     <label>Nombre</label>
                     <input type="text" onChange={this.onChangeName}></input>
+                    <label>Segundo Nombre</label>
+                    <input type="text" onChange={this.onChangeSecondName} />
                     <label>Apellido</label>    
                     <input type="text" onChange={this.onChangeLastName}></input>
+                    <label>Segundo Apellido</label>
+                    <input type="text" onChange={this.onChangeSecondLastName} />
                     <label>Cédula</label>    
                     <input type="text" onChange={this.onChangeCedula}></input>
                 </div>
@@ -64,7 +85,7 @@ export default class Home extends Component {
                             <option>Nacimiento</option>
                             <option>Matrimonio</option>
                             <option>Divorcio</option>
-                            <option>"Defunción</option>
+                            <option>Defunción</option>
                         </select>
                     </div>
                     <div className="col-2">
@@ -94,10 +115,13 @@ export default class Home extends Component {
                 </div>
                 <div>
                     <h1>Solicitudes agregadas</h1>
-                    <p >{this.state.name}</p>
-                    <p >{this.state.lastname}</p>
-                    <p >{this.state.cedula}</p>
-                    <p >{this.state.acta}</p>
+                    < FormInfo datos={ {
+                        nombre: this.state.name,
+                        segundoNombre: this.state.secondName,
+                        apellido: this.state.lastname,
+                        segundoApellido: this.state.secondLastname,
+                        cedula: this.state.cedula
+                     } }/>
                 </div>
             </div>
         )
