@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FormInfo from '../src/formInfoView';
 
 export default class Home extends Component {
-
+    
     constructor(props) {
         super(props);
 
