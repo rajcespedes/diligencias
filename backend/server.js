@@ -1,15 +1,19 @@
 const   express = require('express'),
-        Pool = require('pg'),
-        app = express();
+        Pool = require('pg').Client,
+        app = express(),
+        dotenv = require('dotenv');
 
 
+dotenv.config();
 
 app.listen('5000');
 
+app.set('view engine','html');
+
 const pool = new Pool(
     {
+        host: process.env.HOST,
         user: 'postgres',
-        host: 'localhost',
         database: 'diligencias',
         password: 'test123.',
         port: 5432        
@@ -18,11 +22,19 @@ const pool = new Pool(
 
 pool.connect();
 
-pool.query('SELECT NOW()', function(err,res) {
-    console.log(res);
-    pool.end();
+pool.query('SELECT * FROM acta', function(err,res) {
+    // console.log(res);
+    // res.rows.forEach( data => console.log(data.acta) );
+    // pool.end();
     }
 );
 
-app.get( '/', (req,res) => res.send('some route') );
 
+app.get( '/', async function(req,res){
+
+    var result  = await pool.query('SELECT * FROM acta'); 
+
+    res.json(result.rows);
+    
+ }
+);
