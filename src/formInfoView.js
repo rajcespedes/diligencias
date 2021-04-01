@@ -10,15 +10,8 @@ import { BrowserRouter as Router, Route } from 'react-dom';
                         <h3>{props.datos.nombre}</h3>
                         <h3>{props.datos.apellido}</h3>
                     </div>
-                    <div className="col-2">
-                        
-                         
-                          
-                                <h3>{props.datos.segundoNombre ? props.datos.segundoNombre : "" }</h3>
-                         
-                           
-                        
-                        
+                    <div className="col-2">  
+                        <h3>{props.datos.segundoNombre ? props.datos.segundoNombre : "" }</h3>
                         <h3>{props.datos.segundoApellido}</h3>
                     </div>
                     <div className="col-2 d-flex align-items-center">
