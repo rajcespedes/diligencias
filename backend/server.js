@@ -34,6 +34,8 @@ app.get( '/', async function(req,res){
 
     var result  = await pool.query('SELECT * FROM acta'); 
 
+    console.log(result);MediaKeyMessageEvent
+
     res.json(result.rows);
     
  }

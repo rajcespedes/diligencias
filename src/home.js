@@ -2,7 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FormInfo from '../src/formInfoView';
+import FormInfo from './formInfoView';
+import actasList from './actasList';
 
 export default class Home extends Component {
     
