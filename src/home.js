@@ -6,7 +6,7 @@ import FormInfo from './formInfoView';
 import actasList from './actasList';
 
 export default class Home extends Component {
-    
+
     constructor(props) {
         super(props);
 
@@ -27,7 +27,8 @@ export default class Home extends Component {
             cedula: '',
             acta: '',
             tipoActa: '',
-            cantidad: 1
+            cantidad: 1,
+            subtotal: 0
         };
     }
 
@@ -61,35 +62,40 @@ export default class Home extends Component {
         });
     }
 
+
     onChangeTipoActa(e){
+
         this.setState({
             acta: e.target.value
         });
     }
- 
+
     onChangeCantidad(e){
+
         this.setState({
-            acta: e.target.value * this.state.acta
+            cantidad: e.target.value,
+            // acta: 
+                // (this.state.acta <= 0) ? 1 * this.state.cantidad :      
+            subtotal: this.state.acta * this.state.cantidad
         });
 
-        console.log(this.state.acta);
+        alert(this.state.subtotal);
+
     }
 
     onHandleSubmit(e){
         this.setState({
             name: e.target.value
         });
-
-        console.log(this.state.name);
     }
 
     render() {
         return (
             <div className="container">
-                <form onSubmit={this.onHandleSubmit}>
+                <form>
                 <div className="form-group">
                     <label>Nombre</label>
-                    <input type="text" ></input>
+                    <input onChange={this.onChangeName}  type="text" ></input>
                     <label>Segundo Nombre</label>
                     <input type="text" onChange={this.onChangeSecondName} />
                     <label>Apellido</label>    
@@ -117,14 +123,14 @@ export default class Home extends Component {
                             <div className="col">
                                 <input type='radio' name="tipoActa" value="400" className="mr-1"  onChange={this.onChangeTipoActa}/>
                                 Inextensa
-                                <input type='radio' name="tipoActa" className="ml-2" value="500" className="mr-1" onChange={this.onChangeTipoActa}/>
+                                <input type='radio' name="tipoActa" className="ml-2 mr-1" value="500" onChange={this.onChangeTipoActa}/>
                                 Extensa
                             </div>     
                         </div>
                     </div>
                     <div className="col-2">
                         <h1>Cantidad</h1>
-                        <input type="number" min="1" placeholder="1" onChange={this.onChangeCantidad}/>
+                        <input type="number" min="1" placeholder="0" onChange={this.onChangeCantidad}/>
                     </div>
                     <div className="col-2">
                         <h1>Precio</h1>
