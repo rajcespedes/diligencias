@@ -6,19 +6,24 @@ function actasList(props) {
         <div>
             <div className="row">
                 <div className="col">
-                    <label>Acta</label>
+                    <p>{props.acta}</p>
                 </div>
                 <div className="col">
-                    <label>Tipo</label>
+                    <p>{props.tipoActa == "400" ? "Inextensa" : "Extensa"}</p>
                 </div>
                 <div className="col">
-                    <label>Cantidad</label>
+                    <p>{props.cantidad}</p>
                 </div>
                 <div className="col">
-                    <label>Precio</label>
+                    <p>{props.tipoActa}</p>
                 </div>
                 <div className="col">
-                    <label>Total</label>
+                    <p>{props.tipoActa == "400" ? props.cantidad * 400 : props.cantidad * 500}</p>
+                </div>
+            </div>
+            <div>
+                <div className="row">
+                    {/* <h3>{}</h3> */}
                 </div>
             </div>
         </div>

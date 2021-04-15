@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FormInfo from './formInfoView';
-import actasList from './actasList';
+import ActasList from './actasList';
 
 export default class Home extends Component {
 
@@ -18,6 +18,7 @@ export default class Home extends Component {
         this.onChangeTipoActa = this.onChangeTipoActa.bind(this);
         this.onChangeCantidad = this.onChangeCantidad.bind(this);
         this.onHandleSubmit = this.onHandleSubmit.bind(this);
+        this.onChangeActa = this.onChangeActa.bind(this);
 
         this.state = {
             name: '',
@@ -28,7 +29,7 @@ export default class Home extends Component {
             acta: '',
             tipoActa: '',
             cantidad: 1,
-            subtotal: 0
+            component: []
         };
     }
 
@@ -62,37 +63,60 @@ export default class Home extends Component {
         });
     }
 
-
-    onChangeTipoActa(e){
-
+    onChangeActa(e){
         this.setState({
             acta: e.target.value
         });
     }
 
-    onChangeCantidad(e){
+
+    onChangeTipoActa(e){
 
         this.setState({
-            cantidad: e.target.value,
+            tipoActa: e.target.value
+        });
+    }
+
+    onChangeCantidad(e){
+
+        this.setState( {
+            cantidad: e.target.value
             // acta: 
                 // (this.state.acta <= 0) ? 1 * this.state.cantidad :      
-            subtotal: this.state.acta * this.state.cantidad
+            // subtotal: this.state.acta * this.state.cantidad
         });
 
-        alert(this.state.subtotal);
+        // alert(this.state.cantidad);
 
     }
 
     onHandleSubmit(e){
-        this.setState({
-            name: e.target.value
-        });
+        e.preventDefault();
+        // console.log(e);
+        // this.setState({
+        //     component: <ActasList name={this.state.nombre}/>
+
+        // });
+        var addComponent = this.state.component;
+        addComponent.push(
+            <ActasList 
+                key={addComponent.length}
+                name={this.state.name} 
+                acta={this.state.acta} 
+                cantidad={this.state.cantidad} 
+                tipoActa={this.state.tipoActa}
+                subtotal={this.state.precio * this.state.cantidad}
+                />
+        );
+        this.setState({ component: addComponent });
+
+        // alert({actasList});
     }
 
     render() {
         return (
             <div className="container">
-                <form>
+                <form >
                 <div className="form-group">
                     <label>Nombre</label>
                     <input onChange={this.onChangeName}  type="text" ></input>
@@ -130,14 +154,14 @@ export default class Home extends Component {
                     </div>
                     <div className="col-2">
                         <h1>Cantidad</h1>
-                        <input type="number" min="1" placeholder="0" onChange={this.onChangeCantidad}/>
+                        <input type="number" min="1" placeholder="1" onChange={this.onChangeCantidad}/>
                     </div>
                     <div className="col-2">
                         <h1>Precio</h1>
-                        <input value={ this.state.acta } type="number" disabled />
+                        <input value={ this.state.tipoActa } type="number" disabled />
                     </div>
                     <div className="col-2 d-flex align-items-center">
-                        <input type="submit"  className="btn btn-success" value="Agregar"/>
+                        <input type="submit"  className="btn btn-success" value="Agregar" onClick={this.onHandleSubmit}/>
 
                     </div>
                 </div>
@@ -151,6 +175,26 @@ export default class Home extends Component {
                         segundoApellido: this.state.secondLastname,
                         cedula: this.state.cedula
                      } }/>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <label>Acta</label>
+                    </div>
+                    <div className="col">
+                        <label>Tipo</label>
+                    </div>
+                    <div className="col">
+                        <label>Cantidad</label>
+                    </div>
+                    <div className="col">
+                        <label>Precio</label>
+                    </div>
+                    <div className="col">
+                        <label>Subtotal</label>
+                    </div>
+                </div> 
+                <div>
+                    {this.state.component}
                 </div>
             </div>
         )
